@@ -1,9 +1,11 @@
-import { signInAction } from "@/app/actions";
+import { signInAction, signInWithGithubAction } from "@/app/actions";
 import { FormMessage, Message } from "@/components/form-message";
 import Navbar from "@/components/navbar";
 import { SubmitButton } from "@/components/submit-button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Github } from "lucide-react";
 import Link from "next/link";
 
 interface LoginProps {
@@ -85,6 +87,28 @@ export default async function SignInPage({ searchParams }: LoginProps) {
             >
               Sign in
             </SubmitButton>
+
+            <div className="relative my-4">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-border"></div>
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-card px-2 text-muted-foreground">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <form action={signInWithGithubAction}>
+              <Button
+                type="submit"
+                variant="outline"
+                className="w-full flex items-center gap-2"
+              >
+                <Github size={16} />
+                Sign in with GitHub
+              </Button>
+            </form>
 
             <FormMessage message={message} />
           </form>
