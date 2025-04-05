@@ -2,7 +2,7 @@
 
 import { encodedRedirect } from "@/utils/utils";
 import { redirect } from "next/navigation";
-import { createClient } from "../../supabase/server";
+import { createClient } from "@/utils/supabase/server";
 
 export const signUpAction = async (formData: FormData) => {
   const email = formData.get("email")?.toString();
@@ -102,7 +102,6 @@ export const signInWithGithubAction = async () => {
   if (error) {
     return encodedRedirect("error", "/sign-in", error.message);
   }
-
   return redirect(data.url);
 };
 
@@ -176,7 +175,7 @@ export const resetPasswordAction = async (formData: FormData) => {
 export const signOutAction = async () => {
   const supabase = await createClient();
   await supabase.auth.signOut();
-  return redirect("/sign-in");
+  return redirect("/");
 };
 
 export const checkUserSubscription = async (userId: string) => {

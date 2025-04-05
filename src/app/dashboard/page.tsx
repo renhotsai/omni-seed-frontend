@@ -1,12 +1,10 @@
-import DashboardNavbar from "@/components/dashboard-navbar";
-import { createClient } from "../../../supabase/server";
+import { createClient } from "@/utils/supabase/server";
 import { InfoIcon, UserCircle } from "lucide-react";
 import { redirect } from "next/navigation";
 import { SubscriptionCheck } from "@/components/subscription-check";
 
 export default async function Dashboard() {
   const supabase = await createClient();
-
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -16,8 +14,6 @@ export default async function Dashboard() {
   }
 
   return (
-    <SubscriptionCheck>
-      <DashboardNavbar />
       <main className="w-full">
         <div className="container mx-auto px-4 py-8 flex flex-col gap-8">
           {/* Header Section */}
@@ -46,6 +42,5 @@ export default async function Dashboard() {
           </section>
         </div>
       </main>
-    </SubscriptionCheck>
   );
 }
