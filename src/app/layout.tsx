@@ -5,6 +5,8 @@ import Script from "next/script";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import { createClient } from "@/utils/supabase/server";
+import { Sidebar, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { AppSidebar } from "@/components/app-sidebar";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -14,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 const RootLayout = async ({
-	                    children,
-                    }: Readonly<{
+	                          children,
+                          }: Readonly<{
 	children: React.ReactNode;
 }>) => {
 	const supabase = await createClient()
@@ -27,8 +29,14 @@ const RootLayout = async ({
 			src="https://api.tempolabs.ai/proxy-asset?url=https://storage.googleapis.com/tempo-public-assets/error-handling.js"/>
 		<body className={inter.className}>
 		<Navbar/>
-		{children}
-		<TempoInit/>
+		<SidebarProvider>
+			<AppSidebar />
+			<main>
+				<SidebarTrigger />
+				{children}
+				<TempoInit/>
+			</main>
+		</SidebarProvider>
 		</body>
 		</html>
 	);
